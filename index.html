@@ -4,6 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/reset.css">
+    <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="styles/general.css">
+    <link rel="stylesheet" href="styles/profile.css">
+    <link rel="stylesheet" href="styles/feed.css">
+    <link rel="stylesheet" href="styles/buttons.css">
     <link rel="stylesheet" href="styles/styles.css">
     <link
         href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
@@ -21,21 +27,27 @@
     </header>
     <section class="container">
         <div class="profile">
-            <div class="avatar">
-                <img src="assets/images/avatar.png" alt="Foto do usuário">
+            <div class="profile-header">
+                <img src="assets/images/header.jpg" alt="">
             </div>
-            <div class="profile-infos">
-                <h3>Vanessa Hasckel</h3>
-                <span>@vhasckel</span>
-                <button>Edit profile</button>
-                <p>Florianópolis, SC</p>
-                <p>vanessahsckl@gmail.com</p>
+            <div class="profile-content">
+                <div class="avatar">
+                    <img id="picture" src="assets/images/avatar.jpg" alt="Foto do usuário">
+                </div>
+                <div class="profile-info">
+                    <h3 id="name">Vanessa Hasckel</h3>
+                    <span id="username">@vhasckel</span>
+                    <p>Boas-vindas! Tenho 23 anos. Apaixonada por tecnologia e amante de filosofia e da natureza.</p>
+                    <button class="edit-profile-button">Editar perfil</button>
+                    <p><img src="assets/images/location.svg" alt="ícone de localização"> Florianópolis, SC</p>
+                    <p><img src="assets/images/email.svg" alt="ícone de e-mail"> vanessahsckl@gmail.com</p>
+                </div>
             </div>
         </div>
         <div class="posts">
             <textarea class="post-text" placeholder="O que estou pensando?" name="post" id="post"></textarea>
-            <button onclick="publishPost()">Publicar</button>
-            <div id="feed" class="cards"></div>
+            <button class="publish-button" onclick="publishPost()">Publicar</button>
+            <div id="feed" class="feed-cards"></div>
         </div>
     </section>
     <footer class="footer"></footer>
