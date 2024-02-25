@@ -1,0 +1,29 @@
+.edit-profile-button,
+.card button {
+    align-items: center;
+    background-color: #7b2cbf;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+    padding: 10px;
+}
+
+.card button {
+    align-self: flex-end;
+    margin: 0;
+    width: fit-content;
+}
+
+.publish-button {
+    background-color: #7b2cbf;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    margin-bottom: 10px;
+    padding: 10px;
+}

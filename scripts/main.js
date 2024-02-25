@@ -1,5 +1,30 @@
-const post = document.getElementById("post");
-const feed = document.getElementById("feed");
+const postInput = document.getElementById("post");
+const feedContainer = document.getElementById("feed");
+const profileUsername = document.getElementById("username").textContent;
+const profileName = document.getElementById("name").textContent;
+const profilePicture = document.getElementById("picture").src;
+
+const createPostElement = (post) => {
+  const { uuid, timestamp, content } = post;
+  return `
+    <div id="${uuid}" class="card">
+    <div class="infos">
+        <div class="profile-post">
+            <img src="${profilePicture}" alt="Profile Picture" class="profile-picture">
+            <h3 class="name">${profileName}</h3>
+            <span class="username">${profileUsername}</span>
+        </div>
+    <div class="data">
+    <p >${timestamp}</p>
+    </div>
+    </div>
+
+    <div class="content">${content}</div>
+    <button class="delete-btn" onclick="deletePost('${uuid}')">Deletar</button>
+    </div>
+  </div>
+    `;
+};
 
 //função para publicar um post
 const publishPost = () => {
@@ -9,29 +34,23 @@ const publishPost = () => {
     const uuid = self.crypto.randomUUID();
     console.log(uuid);
     const currentDate = new Date();
-    const currentHour = currentDate.getHours();
-    const currentMin = currentDate.getMinutes();
-    const timestamp = `${currentDate.toLocaleDateString()} ${currentHour}:${currentMin}`;
-    const newPost = `
-        <div id="${uuid}" class="card">
-            <p class="data">${timestamp}</p>
-            <div class="content">${content}</div>
-            <button onclick="deletePost('${uuid}')">Deletar</button>
-        </div>
-        `;
-    feed.innerHTML = newPost + feed.innerHTML;
+    const timestamp = `${currentDate.toLocaleDateString()} ${currentDate.getHours()}:${currentDate.getMinutes()}`;
+    const newPost = { uuid, timestamp, content };
 
-    savePost(timestamp, content, uuid);
+    const postElement = createPostElement(newPost);
 
+    feedContainer.insertAdjacentHTML("afterbegin", postElement);
+
+    savePost(newPost);
     post.value = "";
   }
 };
 
 //função para salvar post no localStorage
-const savePost = (timestamp, content, uuid) => {
+const savePost = (post) => {
   let posts = JSON.parse(localStorage.getItem("posts")) || [];
 
-  posts.push({ timestamp, content, uuid });
+  posts.push(post);
 
   localStorage.setItem("posts", JSON.stringify(posts));
 };
@@ -39,22 +58,10 @@ const savePost = (timestamp, content, uuid) => {
 //função para carregar posts já existentes do localStorage, caso haja
 const loadPosts = () => {
   let posts = JSON.parse(localStorage.getItem("posts")) || [];
-
   posts.reverse();
 
-  let postsHTML = posts
-    .map(
-      (post) => `
-    <div id="${post.uuid}" class="card">
-    <p class="data">${post.timestamp}</p>
-    <div class="content">${post.content}</div>
-    <button onclick="deletePost('${post.uuid}')">Deletar</button>
-</div>
-    `
-    )
-    .join("");
-
-  feed.innerHTML = postsHTML;
+  const postsHTML = posts.map(createPostElement).join("");
+  feedContainer.innerHTML = postsHTML;
 };
 
 //função para deletar um post

@@ -1,0 +1,17 @@
+.container {
+    padding: 0 20rem;
+    display: flex;
+    gap: 20px;
+}
+
+@media(max-width: 992px) {
+    .container {
+        padding: 5px;
+    }
+}
+
+@media(max-width: 1200px) {
+    .container {
+        padding: 5px;
+    }
+}
